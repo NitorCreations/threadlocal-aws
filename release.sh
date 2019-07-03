@@ -31,6 +31,8 @@ else
   NEW_VERSION=$MAJOR.$MINOR
 fi
 
+sed -i "s/$VERSION/$NEW_VERSION/g" setup.py
+
 git tag "$NEW_VERSION" -m "$1"
 git push --tags origin master
 
