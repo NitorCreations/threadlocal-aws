@@ -27,21 +27,27 @@ def _get_retry(url, retries=5, backoff_factor=0.3,
     session.mount('https://', adapter)
     return session.get(url, timeout=5)
 
-def session():
-    if not hasattr(LOCAL, 'session'):
-        LOCAL.session = boto3.session.Session()
-    return LOCAL.session
-
-def _get_local(name, session_func, session_region=None):
-    if not session_region:
-        session_region = region()
-    param_name = session_region + "_" + session_func.__name__ + "_" + name
+def session(**kwargs):
+    param_name = _param_name("session", **kwargs)
     if not hasattr(LOCAL, param_name):
+        setattr(LOCAL, param_name, boto3.session.Session(**kwargs))
+    return getattr(LOCAL, param_name)
+
+def _get_local(name, session_func, **kwargs):
+    if 'region' in kwargs:
+        kwargs['region_name'] = kwargs['region']
+        del kwargs['region']
+    if not 'region_name' in kwargs:
         # region() has one benefit over default resolving - defaults to
         # ec2 instance region if on ec2 and otherwise unset
-        setattr(LOCAL, param_name,
-                session_func(name, region_name=session_region))
+        kwargs['region_name'] = region()
+    param_name = _param_name(session_func.__name__ + "_" + name, **kwargs)
+    if not hasattr(LOCAL, param_name):
+        setattr(LOCAL, param_name, session_func(name, **kwargs))
     return getattr(LOCAL, param_name)
+
+def _param_name(suffix, **kwargs):
+    return hex(hash(frozenset(kwargs.items())))[3:13] + "_" + suffix
 
 def region():
     """ Get default region - the region of the instance if run in an EC2 instance
