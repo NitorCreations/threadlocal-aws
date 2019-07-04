@@ -34,7 +34,7 @@ def session(**kwargs):
     return getattr(LOCAL, param_name)
 
 def _kwarg_session(**kwargs):
-    if "session" in kwargs:
+    if "session" in kwargs and kwargs["session"]:
         sess = kwargs["session"]
     else:
         sess = session()
