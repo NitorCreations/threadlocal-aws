@@ -42,14 +42,10 @@ def _kwarg_session(**kwargs):
 
 def _get_local_client(name, **kwargs):
     sess = _kwarg_session(**kwargs)
-    if "session" in kwargs:
-        del kwargs["session"]
     return _get_local(name, sess.client, **kwargs)
 
 def _get_local_resource(name, **kwargs):
     sess = _kwarg_session(**kwargs)
-    if "session" in kwargs:
-        del kwargs["session"]
     return _get_local(name, sess.resource, **kwargs)
 
 def _get_local(name, session_func, **kwargs):
@@ -61,6 +57,8 @@ def _get_local(name, session_func, **kwargs):
         # ec2 instance region if on ec2 and otherwise unset
         kwargs['region_name'] = region()
     param_name = _param_name(session_func.__name__ + "_" + name, **kwargs)
+    if "session" in kwargs:
+        del kwargs["session"]
     if not hasattr(LOCAL, param_name):
         setattr(LOCAL, param_name, session_func(name, **kwargs))
     return getattr(LOCAL, param_name)
