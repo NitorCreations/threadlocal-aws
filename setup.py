@@ -14,7 +14,7 @@
 import sys
 from setuptools import setup
 
-setup(name='threadlocal_aws',
+setup(name='threadlocal-aws',
       version='0.5',
       description='Library to access threadlocal aws clients and resources',
       url='http://github.com/NitorCreations/threadlocal-aws',
