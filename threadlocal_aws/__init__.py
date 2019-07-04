@@ -33,6 +33,25 @@ def session(**kwargs):
         setattr(LOCAL, param_name, boto3.session.Session(**kwargs))
     return getattr(LOCAL, param_name)
 
+def _kwarg_session(**kwargs):
+    if "session" in kwargs:
+        sess = kwargs["session"]
+    else:
+        sess = session()
+    return sess
+
+def _get_local_client(name, **kwargs):
+    sess = _kwarg_session(**kwargs)
+    if "session" in kwargs:
+        del kwargs["session"]
+    return _get_local(name, sess.client, **kwargs)
+
+def _get_local_resource(name, **kwargs):
+    sess = _kwarg_session(**kwargs)
+    if "session" in kwargs:
+        del kwargs["session"]
+    return _get_local(name, sess.resource, **kwargs)
+
 def _get_local(name, session_func, **kwargs):
     if 'region' in kwargs:
         kwargs['region_name'] = kwargs['region']
