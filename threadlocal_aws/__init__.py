@@ -52,7 +52,7 @@ def _get_local(name, session_func, **kwargs):
     if 'region' in kwargs:
         kwargs['region_name'] = kwargs['region']
         del kwargs['region']
-    if not 'region_name' in kwargs:
+    if not ('region_name' in kwargs and kwargs['region_name']):
         # region() has one benefit over default resolving - defaults to
         # ec2 instance region if on ec2 and otherwise unset
         kwargs['region_name'] = region()
