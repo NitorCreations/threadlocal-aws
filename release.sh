@@ -37,6 +37,4 @@ git tag "$NEW_VERSION" -m "$1"
 git push --tags origin master
 
 python setup.py sdist bdist_wheel
-gpg -o dist/threadlocal_aws-${NEW_VERSION}-py2.py3-none-any.whl.asc -a -b dist/threadlocal_aws-${NEW_VERSION}-py2.py3-none-any.whl
-gpg -o dist/threadlocal-aws-${NEW_VERSION}.tar.gz.asc -a -b dist/threadlocal-aws-${NEW_VERSION}.tar.gz
 twine upload dist/*

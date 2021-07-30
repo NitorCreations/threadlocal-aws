@@ -2,6 +2,26 @@
 
 Convinient access to threadlocal boto3 clients and resources.
 
+## Why
+
+Suppose you have non-trivial serverless project with several lambdas and
+some shared common code. Normally you would want to create used resources
+outside of the lambda handler so that they don't need to be recreated
+during a warm start of the lambda. Also you might want to share the created
+resources in different parts of the code. This might lead to you creating
+lots of resources that end up not being needed on the actual code path
+that gets taken by the lambda function.
+
+With threadlocal-aws the resources are created as a side effect of the first
+call on the code path and subsequent calls use the same resources from a
+threadlocal cache. The arguments to the functions are used as cache keys
+so you can trivially use clients that interact with different regions for example
+just by passing the region to the threadlocal function you use and a matching
+session will be found.
+
+Different accounts can be used by creating sessions towards the accounts and
+passing them to the threadlocal function.
+
 ## Usage
 
 ### Resource
