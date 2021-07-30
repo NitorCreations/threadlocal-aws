@@ -63,8 +63,14 @@ def _get_local(name, session_func, **kwargs):
         setattr(LOCAL, param_name, session_func(name, **kwargs))
     return getattr(LOCAL, param_name)
 
-def _param_name(suffix, **kwargs):
-    return hex(hash(frozenset(kwargs.items())))[3:13] + "_" + suffix
+def _get_local_subresource(name, resource, *args):
+    param_name = _param_name(str(id(resource)) + "_" + name, *args)
+    if not hasattr(LOCAL, param_name):
+        setattr(LOCAL, param_name, getattr(resource, name)(*args))
+    return getattr(LOCAL, param_name)
+
+def _param_name(suffix, *args, **kwargs):
+    return hex(hash((frozenset(kwargs.items()), frozenset(args))))[3:13] + "_" + suffix
 
 def region():
     """ Get default region - the region of the instance if run in an EC2 instance
