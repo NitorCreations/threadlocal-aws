@@ -15,10 +15,10 @@ import sys
 from setuptools import setup
 
 setup(name='threadlocal-aws',
-      version='0.8',
+      version='0.9',
       description='Library to access threadlocal aws clients and resources',
       url='http://github.com/NitorCreations/threadlocal-aws',
-      download_url='https://github.com/NitorCreations/threadlocal-aws/tarball/0.8',
+      download_url='https://github.com/NitorCreations/threadlocal-aws/tarball/0.9',
       author='Pasi Niemi',
       author_email='pasi.niemi@nitor.com',
       license='Apache 2.0',
