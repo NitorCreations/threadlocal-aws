@@ -38,7 +38,7 @@ You can get an item from dynamo with just two lines of code:
 ```python
 from threadlocal_aws.resources import dynamodb_Table as table
 
-dynamo_resp = table(region="eu-central-1", "my-table").get_item(Key="foo#bar#123")
+dynamo_resp = table("my-table", region="eu-central-1").get_item(Key="foo#bar#123")
 ```
 
 Or iterate all objects in a bucket:
