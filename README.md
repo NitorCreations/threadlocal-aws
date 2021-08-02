@@ -22,6 +22,13 @@ session will be found.
 Different accounts can be used by creating sessions towards the accounts and
 passing them to the threadlocal function.
 
+## Where not to use
+
+All of the created resources are stored for the lifetime of the program so it is
+only a good idea to use in places where the lifetime of the program is limited.
+Also an environment with lots of threads combined with a long lifetime like some web
+development frameworks is not a good idea.
+
 ## Usage
 
 ### Resource
