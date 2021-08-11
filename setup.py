@@ -26,6 +26,7 @@ setup(name='threadlocal-aws',
       include_package_data=True,
       install_requires=[
           'boto3',
-          'urllib3'
+          'urllib3',
+          'requests'
       ] + (['wmi'] if sys.platform.startswith('win') else []),
       zip_safe=True)
