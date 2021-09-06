@@ -49,6 +49,8 @@ def _get_local_resource(name, **kwargs):
     return _get_local(name, sess.resource, **kwargs)
 
 def _get_local(name, session_func, **kwargs):
+    #ec2-instance-connect given as ec2_instance_connect on the import line
+    name = name.replace("_", "-")
     if 'region' in kwargs:
         kwargs['region_name'] = kwargs['region']
         del kwargs['region']
