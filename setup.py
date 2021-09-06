@@ -1,4 +1,4 @@
-# Copyright 20.10 Pasi Niemi
+# Copyright 20.11 Pasi Niemi
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -15,10 +15,10 @@ import sys
 from setuptools import setup
 
 setup(name='threadlocal-aws',
-      version='0.10',
+      version='0.11',
       description='Library to access threadlocal aws clients and resources',
       url='http://github.com/NitorCreations/threadlocal-aws',
-      download_url='https://github.com/NitorCreations/threadlocal-aws/tarball/0.10',
+      download_url='https://github.com/NitorCreations/threadlocal-aws/tarball/0.11',
       author='Pasi Niemi',
       author_email='pasi.niemi@nitor.com',
       license='Apache 2.0',
